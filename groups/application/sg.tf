@@ -12,7 +12,7 @@ module "gfn_app_ec2_security_group" {
   computed_ingress_with_source_security_group_id = [
     {
       rule                     = "http-8080-tcp"
-      source_security_group_id = module.gfn_app_internal_alb_security_group.this_security_group_id
+      source_security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
     }
   ]
   number_of_computed_ingress_with_source_security_group_id = 1
@@ -22,7 +22,7 @@ module "gfn_app_ec2_security_group" {
 
 resource "aws_security_group_rule" "jdbc" {
 
-  security_group_id = module.gfn_app_internal_alb_security_group.this_security_group_id
+  security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
   description       = "Allow on-premise jdbc queries"
   for_each          = toset(["1521"])
   type              = "ingress"
@@ -34,7 +34,7 @@ resource "aws_security_group_rule" "jdbc" {
 
 resource "aws_security_group_rule" "weblogic" {
 
-  security_group_id = module.gfn_app_internal_alb_security_group.this_security_group_id
+  security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
   description       = "Allow on-premise weblogic traffic"
   for_each          = toset(["58031","58032"])
   type              = "ingress"
