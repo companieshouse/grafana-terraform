@@ -11,34 +11,12 @@ data "aws_subnet" "application" {
   id       = each.value
 }
 
-data "aws_subnet_ids" "web" {
-  vpc_id = data.aws_vpc.vpc.id
-  filter {
-    name   = "tag:Name"
-    values = ["sub-web-*"]
-  }
-}
 
 data "aws_subnet_ids" "application" {
   vpc_id = data.aws_vpc.vpc.id
   filter {
     name   = "tag:Name"
     values = ["sub-application-*"]
-  }
-}
-
-data "aws_subnet_ids" "data" {
-  vpc_id = data.aws_vpc.vpc.id
-  filter {
-    name   = "tag:Name"
-    values = ["sub-data-*"]
-  }
-}
-
-data "aws_security_group" "nagios_shared" {
-  filter {
-    name   = "group-name"
-    values = ["sgr-nagios-inbound-shared-*"]
   }
 }
 
