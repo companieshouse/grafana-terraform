@@ -41,26 +41,14 @@ resource "aws_security_group_rule" "weblogic" {
   cidr_blocks       = var.weblogic_client_ips
 }
 
-resource "aws_security_group_rule" "logstash" {
+resource "aws_security_group_rule" "clients" {
 
   security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
-  description       = "Allow on-premise logstash traffic"
+  description       = "Allow on-prem client traffic"
   for_each          = toset(["22", "443"])
   type              = "ingress"
   from_port         = each.value
   to_port           = each.value
   protocol          = "tcp"
-  cidr_blocks       = var.logstash_client_ips
-}
-
-resource "aws_security_group_rule" "onpremise_admin" {
-
-  security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
-  description       = "Allow on-premise ranges to access over SSH and HTTPS for administration"
-  for_each          = toset(["22", "443"])
-  type              = "ingress"
-  from_port         = each.value
-  to_port           = each.value
-  protocol          = "tcp"
-  cidr_blocks       = local.admin_cidrs
+  cidr_blocks       = concat(local.admin_cidrs, var.logstash_client_ips)
 }
