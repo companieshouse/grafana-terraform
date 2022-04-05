@@ -16,7 +16,7 @@ module "gfn_app_ec2_security_group" {
     }
   ]
 
-  egress_rules = ["all-all"]
+  #egress_rules = ["all-all"]
 }
 
 resource "aws_security_group_rule" "jdbc" {
