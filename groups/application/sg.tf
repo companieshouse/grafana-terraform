@@ -19,17 +19,6 @@ module "gfn_app_ec2_security_group" {
   #egress_rules = ["all-all"]
 }
 
-resource "aws_security_group_rule" "jdbc" {
-
-  security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
-  description       = "Allow on-premise jdbc queries"
-  type              = "ingress"
-  from_port         = 1521
-  to_port           = 1521
-  protocol          = "tcp"
-  cidr_blocks       = var.jdbc_client_ips
-}
-
 resource "aws_security_group_rule" "weblogic" {
 
   security_group_id = module.gfn_app_ec2_security_group.this_security_group_id

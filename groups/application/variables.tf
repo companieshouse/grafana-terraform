@@ -51,11 +51,10 @@ variable "domain_name" {
   description = "Domain Name for ACM Certificate"
 }
 
-
-variable "jdbc_client_ips" {
-  type        = list(any)
-  description = "The IPs required for JDBC queries"
-}
+#variable "jdbc_client_ips" {
+#  type        = list(any)
+#  description = "The IPs required for JDBC queries"
+#}
 
 variable "weblogic_client_ips" {
   type        = list(any)
