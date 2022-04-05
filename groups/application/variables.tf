@@ -71,6 +71,7 @@ variable "vault_password" {
   description = "The password used when retrieving configuration from Hashicorp Vault"
   type        = string
 }
+
 /*
 
       # ------------------------------------------------------------------------------
