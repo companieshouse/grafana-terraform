@@ -16,19 +16,7 @@ module "gfn_app_ec2_security_group" {
     }
   ]
 
-  egress_rules = ["all-all"]
-}
-
-resource "aws_security_group_rule" "jdbc" {
-
-  security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
-  description       = "Allow on-premise jdbc queries"
-  for_each          = toset(["1521"])
-  type              = "ingress"
-  from_port         = each.value
-  to_port           = each.value
-  protocol          = "tcp"
-  cidr_blocks       = var.jdbc_client_ips
+  #egress_rules = ["all-all"]
 }
 
 resource "aws_security_group_rule" "weblogic" {
@@ -40,4 +28,16 @@ resource "aws_security_group_rule" "weblogic" {
   to_port           = 58032
   protocol          = "tcp"
   cidr_blocks       = var.weblogic_client_ips
+}
+
+resource "aws_security_group_rule" "clients" {
+
+  security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
+  description       = "Allow on-prem client traffic"
+  for_each          = toset(["22", "443"])
+  type              = "ingress"
+  from_port         = each.value
+  to_port           = each.value
+  protocol          = "tcp"
+  cidr_blocks       = concat(local.admin_cidrs, var.logstash_client_ips)
 }
