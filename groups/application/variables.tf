@@ -62,15 +62,6 @@ variable "weblogic_client_ips" {
   description = "The IPs required for weblogic queries"
 }
 
-variable "vault_username" {
-  description = "The username used when retrieving configuration from Hashicorp Vault"
-  type        = string
-}
-
-variable "vault_password" {
-  description = "The password used when retrieving configuration from Hashicorp Vault"
-  type        = string
-}
 /*
 
       # ------------------------------------------------------------------------------
