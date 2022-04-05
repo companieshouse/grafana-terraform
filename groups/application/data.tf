@@ -28,3 +28,7 @@ data "aws_route53_zone" "private_zone" {
 data "aws_acm_certificate" "acm_cert" {
   domain = var.domain_name
 }
+
+data "vault_generic_secret" "internal_cidrs" {
+  path = "aws-accounts/network/internal_cidr_ranges"
+}

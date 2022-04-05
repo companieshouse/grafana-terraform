@@ -23,10 +23,9 @@ resource "aws_security_group_rule" "jdbc" {
 
   security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
   description       = "Allow on-premise jdbc queries"
-  for_each          = toset(["1521"])
   type              = "ingress"
-  from_port         = each.value
-  to_port           = each.value
+  from_port         = 1521
+  to_port           = 1521
   protocol          = "tcp"
   cidr_blocks       = var.jdbc_client_ips
 }
@@ -40,4 +39,28 @@ resource "aws_security_group_rule" "weblogic" {
   to_port           = 58032
   protocol          = "tcp"
   cidr_blocks       = var.weblogic_client_ips
+}
+
+resource "aws_security_group_rule" "logstash" {
+
+  security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
+  description       = "Allow on-premise logstash traffic"
+  for_each          = toset(["22", "443"])
+  type              = "ingress"
+  from_port         = each.value
+  to_port           = each.value
+  protocol          = "tcp"
+  cidr_blocks       = var.logstash_client_ips
+}
+
+resource "aws_security_group_rule" "onpremise_admin" {
+
+  security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
+  description       = "Allow on-premise ranges to access over SSH and HTTPS for administration"
+  for_each          = toset(["22", "443"])
+  type              = "ingress"
+  from_port         = each.value
+  to_port           = each.value
+  protocol          = "tcp"
+  cidr_blocks       = local.admin_cidrs
 }

@@ -62,6 +62,20 @@ variable "weblogic_client_ips" {
   description = "The IPs required for weblogic queries"
 }
 
+variable "logstash_client_ips" {
+  type        = list(any)
+  description = "The IPs required for weblogic queries"
+}
+
+variable "vault_username" {
+  type        = string
+  description = "Username for connecting to Vault"
+}
+
+variable "vault_password" {
+  type        = string
+  description = "Password for connecting to Vault"
+}
 /*
 
       # ------------------------------------------------------------------------------
