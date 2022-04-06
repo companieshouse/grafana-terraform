@@ -9,7 +9,7 @@ module "gfn_app_ec2_security_group" {
   description         = "Security group for the ${var.application} app ec2"
   vpc_id              = data.aws_vpc.vpc.id
   ingress_cidr_blocks = concat(local.internal_cidrs, var.logstash_client_ips)
-  ingress_rules       = ["http-80-tcp", "https-443-tcp", "ssh"]
+  ingress_rules       = ["http-80-tcp", "https-443-tcp", "ssh-tcp"]
 
 
 #  #egress_rules = ["all-all"]
