@@ -25,3 +25,15 @@ resource "aws_security_group_rule" "weblogic" {
   protocol          = "tcp"
   cidr_blocks       = var.weblogic_client_ips
 }
+
+resource "aws_security_group_rule" "clients" {
+
+  security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
+  description       = "Allow on-premise client traffic"
+  for_each          = toset(["3000","8083"])
+  type              = "ingress"
+  from_port         = each.value
+  to_port           = each.value
+  protocol          = "tcp"
+  cidr_blocks       = concat(local.internal_cidrs, var.logstash_client_ips)
+}
