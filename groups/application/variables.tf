@@ -75,6 +75,12 @@ variable "vault_password" {
   type        = string
   description = "Password for connecting to Vault"
 }
+
+variable "grafana_cw_logs" {
+  type        = map(any)
+  description = "Map of log file information; used to create log groups, IAM permissions and passed to the application to configure remote logging"
+  default     = {}
+}
 /*
 
       # ------------------------------------------------------------------------------
