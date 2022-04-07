@@ -30,7 +30,7 @@ resource "aws_security_group_rule" "clients" {
 
   security_group_id = module.gfn_app_ec2_security_group.this_security_group_id
   description       = "Allow on-premise client traffic"
-  for_each          = toset(["3000","8083"])
+  for_each          = toset(["3000","8083","8086"])
   type              = "ingress"
   from_port         = each.value
   to_port           = each.value
