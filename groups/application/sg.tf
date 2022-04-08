@@ -12,7 +12,7 @@ module "gfn_app_ec2_security_group" {
   ingress_rules       = ["http-80-tcp", "https-443-tcp", "ssh-tcp"]
 
 
-#  #egress_rules = ["all-all"]
+  egress_rules = ["all-all"]
 }
 
 resource "aws_security_group_rule" "weblogic" {
