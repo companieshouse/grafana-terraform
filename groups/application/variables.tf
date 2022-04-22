@@ -51,19 +51,10 @@ variable "domain_name" {
   description = "Domain Name for ACM Certificate"
 }
 
-#variable "jdbc_client_ips" {
-#  type        = list(any)
-#  description = "The IPs required for JDBC queries"
-#}
-
-variable "weblogic_client_ips" {
+variable "additional_client_cidrs" {
   type        = list(any)
-  description = "The IPs required for weblogic queries"
-}
-
-variable "logstash_client_ips" {
-  type        = list(any)
-  description = "The IPs required for weblogic queries"
+  default     = []
+  description = "Additional cidrs for access from scripts and logstash instances external to the analytics server"
 }
 
 variable "vault_username" {
