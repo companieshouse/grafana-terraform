@@ -9,7 +9,7 @@ locals {
   grafana_cw_logs    = { for log, map in var.grafana_cw_logs : log => merge(map, { "log_group_name" = "${var.application}-fe-${log}" }) }
   grafana_log_groups = compact([for log, map in local.grafana_cw_logs : lookup(map, "log_group_name", "")])
 
-
+  account_ids            = data.vault_generic_secret.account_ids.data
   kms_keys_data          = data.vault_generic_secret.kms_keys.data
   security_kms_keys_data = data.vault_generic_secret.security_kms_keys.data
   logs_kms_key_id        = local.kms_keys_data["logs"]

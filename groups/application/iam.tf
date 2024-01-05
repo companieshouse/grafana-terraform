@@ -30,6 +30,16 @@ module "gfn_app_profile" {
       actions = [
         "route53:ChangeResourceRecordSets"
       ]
+    },
+    {
+      sid       = "AllowAsumeRoleForSecurityHubReadOnlyAccess"
+      effect    = "Allow"
+      resources = [
+        "arn:aws:iam::${local.account_ids["security"]}:role/security-hub-analytics-role"
+      ]
+      actions   = [
+        "sts:AssumeRole"
+      ]
     }
   ]
 }
